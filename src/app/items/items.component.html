@@ -1,0 +1,26 @@
+<div class="container">
+  <label>Add an item: </label>
+  <input (keyup)="onKey(itemInput.value)" placeholder="item-name" #itemInput
+  (keyup.enter)="addItem(itemInput.value)">
+  <button class="btn-primary" type="button" (click)="addItem(itemInput.value)">Add</button>
+  <button class="btn-secondary" type="button" (click)="itemInput.value=''">Clear</button>
+</div>
+<div class="container">
+  <label>Items</label>
+  <ul>
+    <div class="container" *ngIf="!editMode">
+      <li *ngFor="let item of items">
+        <input type="checkbox">
+          {{item}} 
+        <button class="btn-primary" type="button" (click)="editItem(item)">Edit</button>
+      </li>  
+    </div>
+    <div class="container" *ngIf="editMode">
+        <li *ngFor="let item of items; let i = index">
+          <input type="checkbox">
+          <input type="text" #listItem [value]="item" (keyup)="onKey(listItem.value)" (keyup.enter)="saveItem(listItem.value, i)">
+          <button class="btn-primary" type="button" (click)="saveItem(listItem.value, i)">Save</button>
+        </li>  
+      </div>
+  </ul>
+</div>
