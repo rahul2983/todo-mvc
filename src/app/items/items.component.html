@@ -8,19 +8,17 @@
 <div class="container">
   <label>Items</label>
   <ul>
-    <div class="container" *ngIf="!editMode">
-      <li *ngFor="let item of items">
+    <li *ngFor="let item of items; let i = index">
+      <div class="container" *ngIf="!editMode[i]">
         <input type="checkbox">
           {{item}} 
-        <button class="btn-primary" type="button" (click)="editItem(item)">Edit</button>
-      </li>  
-    </div>
-    <div class="container" *ngIf="editMode">
-        <li *ngFor="let item of items; let i = index">
-          <input type="checkbox">
-          <input type="text" #listItem [value]="item" (keyup)="onKey(listItem.value)" (keyup.enter)="saveItem(listItem.value, i)">
-          <button class="btn-primary" type="button" (click)="saveItem(listItem.value, i)">Save</button>
-        </li>  
+        <button class="btn-primary" type="button" (click)="editItem(item, i)">Edit</button>
       </div>
+      <div class="container" *ngIf="editMode[i]">
+        <input type="checkbox">
+        <input  type="text" #listItem [value]="item" (keyup)="onKey(listItem.value)" (keyup.enter)="saveItem(listItem.value, i)">
+        <button class="btn-primary" type="button" (click)="saveItem(listItem.value, i)">Save</button>
+      </div>
+    </li>
   </ul>
 </div>
